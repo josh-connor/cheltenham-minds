@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"> 
+	<head>
+		<meta charset="utf-8">
+		<title>The Minds of Our Generation</title>
+		<link rel="icon" href="./img/favicon.ico" type="image/x-icon" /> 
+		<link rel="manifest" href="/manifest.json">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="#E70095">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<meta name="theme-color" content="#E70095"/><!-- 
+		<meta name="theme-color" content="rgb(214,0,127)"/> -->
+		<link rel="stylesheet" href="https://use.typekit.net/mre2lsl.css">
+		<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<link rel="stylesheet" href="css/style.css">
+		<script src="./js/script.js"></script>
+	</head>
+	<body class="fullscreen">
+		<!-- <div class="background container">
+			<div class="container" id="seventy"></div>
+		</div> -->
+		<!-- Start of first page: #one -->
+		<div data-role="page" id="one">
+			<div class="background container">
+				<img src="./img/minds.png" id="minds">
+				<a href="https://www.cheltenhamfestivals.com/literature/" target="_blank"><img src="./img/litFestLogo.png" id="logo"></a>
+				<div class="container seventy" id="seventy"><img src="./img/70.png"></div><a href="#credits"><div id="skip" class="whiteText">Credits</div></a>
+			</div>
+			<a href="#two" data-transition="slide"><button type="button" class="pinkButton whiteText">START</button></a>
+
+		</div><!-- /page one -->
+
+		<!-- Start of second page: #two -->
+		<div data-role="page" id="two">
+			<div class="background container">
+				<div class="introText whiteText">This town has played host to hundreds of voices through the years. Writers, politicians, explorers and poets have breathed the same air that you do now, and despite the years between you, today they will perform for an audience of one<br><br>They will perform for you</div>
+				<div class="container seventy" id="seventyLeft"><img src="./img/70.png"></div>
+				<a href="./map.html" data-ajax="false"><div id="skip" class="whiteText">SKIP INTRO</div></a>
+			</div>
+			<a href="#three" data-transition="slide"><button type="button" class="pinkButton whiteText">NEXT</button></a>
+		</div><!-- /page two -->
+
+		<!-- Start of third page: #three -->
+		<div data-role="page" id="three">
+			<div class="background container">
+				<div class="introText whiteText">This is an audio walk across the centre of Cheltenham. Beginning in Montpellier Gardens, we’ll ask you to travel through the streets of the town and listen.<br><br>When you arrive at each point you’ll need to have your phone unlocked, and this screen open.<br><br>Put your headphones on.<br>When you’re ready,<br>press begin.</div>
+				<div class="container seventy" id="seventyRight"><img src="./img/70.png"></div>
+			</div>
+			
+			<a href="./map.html" data-ajax="false"><button type="button" class="pinkButton whiteText" id="beginButton">BEGIN</button></a>
+			
+		</div><!-- /page three -->
+		
+		<div data-role="page" id="credits">
+			<div class="background container">
+				<div class="introText creditText whiteText">
+					<h2 class="museo">credits:</h2>
+					Design & Development:<br><span class="museo">Josh Connor &<br>Tom Abba</span><br><br>
+					All recordings used with kind permission of the performer
+				</div>
+				<div><a href="https://www.cheltenhamfestivals.com/literature/" target="_blank"><img src="./img/litLogo.png" id="logoCredit"></a></div>
+				<div><a href="https://www.ambientlit.com" target="_blank"><img src="./img/amblit_logo.png" id="logo2Credit"></a></div>
+				<div class="whiteText"><span class="small">&copy; Ambient Literature Lab 2019.</span></div>
+				<div class="container seventy" id="seventyRight"><img src="./img/70.png"></div>
+			</div>
+			
+			<a href="#one" data-ajax="false"><button type="button" class="pinkButton whiteText" id="beginButton">Home</button></a>
+			
+		</div><!-- /page credits -->
+	</body>
+</html>

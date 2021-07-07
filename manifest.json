@@ -1,0 +1,51 @@
+{ 
+"manifest_version": 2,
+
+"version": "1.0",
+
+"name": "The Minds of Our Generation",   
+   
+"short_name": "Cheltenham Minds",
+
+"description": "Celebrating 70 years of the Cheltenham Literature Festival, a poetry walk through the city",
+
+"default_locale": "en", 
+     
+"lang": "en-GB",     
+ 
+"start_url": "/index.html", 
+     
+"display": "standalone",
+"orientation": "portrait", 
+    
+"background_color": "#E70095",   
+   
+"theme_color": "#E70095",
+
+"serviceworker": {
+  "src": "./sw.js"
+},
+"icons": [
+  {
+    "src": "/img/icon.png",
+    "type": "image/png",
+    "sizes": "512x512"
+  },
+  {
+    "src": "/img/icon@0.5x.png",
+    "type": "image/png",
+    "sizes": "256x256"
+  },
+  {
+    "src": "/img/icon@0.25x.png",
+    "type": "image/png",
+    "sizes": "128x128"
+  },
+  {
+    "src": "/img/icon@0.125x.png",
+    "type": "image/png",
+    "sizes": "64x64"
+  }
+]
+ 
+}

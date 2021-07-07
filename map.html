@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en"> 
+	<head>
+		<meta charset="utf-8">
+		<title>The Minds of Our Generation</title>
+		<link rel="icon" href="./img/favicon.ico" type="image/x-icon" /> 
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="manifest" href="/manifest.json">
+		<link rel="stylesheet" href="https://use.typekit.net/mre2lsl.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="#E70095">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<meta name="theme-color" content="#E70095"/>
+		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.2/mapbox-gl.js'></script>
+		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.2/mapbox-gl.css' rel='stylesheet' />
+		<script src="./js/script.js"></script>
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body class="fullscreen">
+		<div id='map' style='width: 100%; height: calc(100% - 70px);'></div>
+		<div id="instructions">
+			<div class="whiteText introText">
+				Once you’re in the centre of Cheltenham, a blue dot will mark your position.
+				<br><br>
+				Visiting each location on this map will release a performance from the archive. Each will play through until it ends, or you find a new one. On completion, that icon will change colour.
+			</div>
+			<button class="whiteText" id="closeBtn" onclick="hideInst();">dismiss</button>
+		</div>
+		<div id="alertPlay" class="whiteText"><div>To listen to <span id="poetPlay"></span> press play</div><button class="whiteText" id="playBtn" onclick="playAudio()">Play</button></div>
+		<div id="nowPlaying" class="whiteText">
+			
+			<div id="listening">Approach a point to begin</div>
+			
+			<img id="poetImg" onclick="aud.play()" src="./img/poets/Allen Ginsberg.jpg">
+			
+			<div id="dynamic">
+				<div id="poetName" class="museo"></div>
+				<div id="recYear"></div>
+			</div>
+			
+			<div id="controls">
+				<div id="centerMap" onclick="centerMap()">Center<br>Map</div>
+				<div id="resetMap" onclick="resetPoints()">Reset<br>Points</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/script.js"></script>
+		<script>
+			function playAudio(){
+				aud.play();
+				/*if (playPromise !== null){
+								    playPromise.catch(() => { 
+								    	var ele = document.getElementById("alertPlay");
+
+								    	ele.style.display = "block";
+								  });  	
+								};*/
+					        	aud.onended = function(){tester.fin();};
+				document.getElementById("alertPlay").style.display = "none";
+
+			}
+			function hideInst(){
+				
+				var ele = document.getElementById("instructions");
+				ele.classList.add("scale-down");
+				
+			}
+			var locations = [
+				{
+				  "lat":51.89489,
+				  "long":-2.08066,
+				  "rad":0.0009,
+				  "file":"loc1_Allen_Ginsberg.mp3",
+				  "pointID":1,
+				  "name":"Allen Ginsberg",
+				  "year":"1993",
+				  "layer":{
+							"id": "point1",
+							"type": "symbol",
+							"source": {
+								"type": "geojson",
+								"data": {
+									"type": "FeatureCollection",
+									"features": [{
+										"type": "Feature",
+										"geometry": {
+											"type": "Point",
+											"coordinates": [-2.08066, 51.89489]
+										}
+									}]
+								}
+							},
+							"layout": {
+								"icon-image": "festMarker",
+								"icon-size": 0.5,
+								"icon-allow-overlap":true,
+								"icon-anchor":"bottom"
+							}
+						}
+				},{
+				  "lat":51.89986,
+				  "long":-2.08006,
+				  "rad":0.00045,
+				  "file":"loc2_Hollie_McNish.mp3",
+				  "pointID":2,
+				  "name":"Hollie McNish",
+				  "year":"2015",
+				  "layer":{
+							"id": "point2",
+							"type": "symbol",
+							"source": {
+								"type": "geojson",
+								"data": {
+									"type": "FeatureCollection",
+									"features": [{
+										"type": "Feature",
+										"geometry": {
+											"type": "Point",
+											"coordinates": [-2.08006, 51.89986]
+										}
+									}]
+								}
+							},
+							"layout": {
+								"icon-image": "festMarker",
+								"icon-size": 0.5,
+								"icon-allow-overlap":true,
+								"icon-anchor":"bottom"
+							}
+						}
+				},{
+				  "lat":51.9013,
+				  "long":-2.07579,
+				  "rad":0.00045,
+				  "file":"loc3_Lemn_Sissay.mp3",
+				  "pointID":3,
+				  "name":"Lemn Sissay",
+				  "year":"2011",
+				  "layer":{
+							"id": "point3",
+							"type": "symbol",
+							"source": {
+								"type": "geojson",
+								"data": {
+									"type": "FeatureCollection",
+									"features": [{
+										"type": "Feature",
+										"geometry": {
+											"type": "Point",
+											"coordinates": [-2.07579, 51.9013]
+										}
+									}]
+								}
+							},
+							"layout": {
+								"icon-image": "festMarker",
+								"icon-size": 0.5,
+								"icon-allow-overlap":true,
+								"icon-anchor":"bottom"
+							}
+						}
+				},{
+				  "lat":51.90325,
+				  "long":-2.0741,
+				  "rad":0.00045,
+				  "file":"loc4_Simon_Armitage.mp3",
+				  "pointID":4,
+				  "name":"Simon Armitage",
+				  "year":"2009",
+				  "layer":{
+							"id": "point4",
+							"type": "symbol",
+							"source": {
+								"type": "geojson",
+								"data": {
+									"type": "FeatureCollection",
+									"features": [{
+										"type": "Feature",
+										"geometry": {
+											"type": "Point",
+											"coordinates": [-2.0741, 51.90325]
+										}
+									}]
+								}
+							},
+							"layout": {
+								"icon-image": "festMarker",
+								"icon-size": 0.5,
+								"icon-allow-overlap":true,
+								"icon-anchor":"bottom"
+							}
+						}
+				},{
+				  "lat":51.90351,
+				  "long":-2.07695,
+				  "rad":0.00045,
+				  "file":"loc5_George_the_Poet.mp3",
+				  "pointID":5,
+				  "name":"George the Poet",
+				  "year":"2015",
+				  "layer":{
+							"id": "point5",
+							"type": "symbol",
+							"source": {
+								"type": "geojson",
+								"data": {
+									"type": "FeatureCollection",
+									"features": [{
+										"type": "Feature",
+										"geometry": {
+											"type": "Point",
+											"coordinates": [-2.07695, 51.90351]
+										}
+									}]
+								}
+							},
+							"layout": {
+								"icon-image": "festMarker",
+								"icon-size": 0.5,
+								"icon-allow-overlap":true,
+								"icon-anchor":"bottom"
+							}
+						}
+				},{
+				  "lat":51.90417,
+				  "long":-2.0778,
+				  "rad":0.00045,
+				  "file":"loc6_Stevie_Smith.mp3",
+				  "pointID":6,
+				  "name":"Stevie Smith",
+				  "year":"1965",
+				  "layer":{
+							"id": "point6",
+							"type": "symbol",
+							"source": {
+								"type": "geojson",
+								"data": {
+									"type": "FeatureCollection",
+									"features": [{
+										"type": "Feature",
+										"geometry": {
+											"type": "Point",
+											"coordinates": [-2.0778, 51.90417]
+										}
+									}]
+								}
+							},
+							"layout": {
+								"icon-image": "festMarker",
+								"icon-size": 0.5,
+								"icon-allow-overlap":true,
+								"icon-anchor":"bottom"
+							}
+						}
+				},{
+				  "lat":51.90508,
+				  "long":-2.08449,
+				  "rad":0.00045,
+				  "file":"loc7_Seamus_Heaney.mp3",
+				  "pointID":7,
+				  "name":"Seamus Heaney",
+				  "year":"1995",
+				  "layer":{
+							"id": "point7",
+							"type": "symbol",
+							"source": {
+								"type": "geojson",
+								"data": {
+									"type": "FeatureCollection",
+									"features": [{
+										"type": "Feature",
+										"geometry": {
+											"type": "Point",
+											"coordinates": [-2.08449, 51.90508]
+										}
+									}]
+								}
+							},
+							"layout": {
+								"icon-image": "festMarker",
+								"icon-size": 0.5,
+								"icon-allow-overlap":true,
+								"icon-anchor":"bottom"
+							}
+						}
+				}
+			];
+			var iOS =  
+                /iPad|iPhone|iPod/.test(navigator.userAgent) && 
+                !window.MSStream; 
+
+			var aud = document.createElement('audio');
+			/*aud.autoplay = false;
+			aud.autostart="0";*/
+			var source = document.createElement('source');
+			source.type = 'audio/mpeg';
+			source.src = "";
+			aud.appendChild(source);
+			const playPromise = aud.play();
+			
+			
+			function centerMap(){
+				navigator.geolocation.getCurrentPosition(function(position){
+					map.flyTo({center: [position.coords.longitude,position.coords.latitude],minZoom:14, zoom:15})
+				});
+				
+			}
+			function resetPoints(){
+				if(confirm("Are you sure you want to reset all points?")){
+					localStorage.removeItem("complete");
+					removePoints();
+					drawPoints();
+				}
+				
+			}
+			function removePoints(){
+				var i;
+
+				for (i = 0; i < locations.length; i++){
+					locations[i].layer.layout["icon-image"] = "festMarker";
+					if (typeof(map.getLayer("point"+locations[i].pointID+"fin")) !== "undefined") {
+						map.removeLayer("point"+locations[i].pointID+"fin");
+						map.removeSource("point"+locations[i].pointID+"fin");
+						}
+						else if(typeof(map.getLayer("point" +locations[i].pointID)) !== "undefined"){
+							map.removeLayer("point"+locations[i].pointID);
+							map.removeSource("point"+locations[i].pointID);
+						}
+				}
+			}
+
+			function drawPoints(){
+					var i;
+					var comp =[];
+		        	if(typeof(localStorage.complete) !== "undefined"){
+		        		comp = JSON.parse(localStorage.complete);
+		        	}
+			  		for (i = 0; i < locations.length; i++){
+			  			
+			        	if (comp.includes(locations[i].pointID)){
+			        		console.log(locations[i].layer.id + " already played");
+			        		locations[i].layer.layout["icon-image"] = "festMarkerGrey";
+			        	}/*else{*/
+			        		if(typeof(map.getLayer("point"+locations[i].pointID)) === "undefined"){
+			        			
+								map.addLayer(locations[i].layer);
+							}
+					/*	}*/
+					}
+			}
+			var tester = {
+			  here: function(a, b, x, y, r){
+			  	var i;
+			  	for (i = 0; i < locations.length; i++){
+			  		x = locations[i].lat
+			  		y = locations[i].long
+			  		r = locations[i].rad
+			  		var dist_points = (a - x) * (a - x) + (b - y) * (b - y);
+				    r *= r;
+				    if (dist_points < r) {
+				        //console.log("./audio/" + locations[i].file);
+				        if ((window.location.protocol +"//"+ window.location.host +"/audio/" +locations[i].file) !== source.src) {//if not already playing current file
+				        	var comp =[];
+				        	if(typeof(localStorage.complete) !== "undefined"){//if there is local storage
+				        		comp = JSON.parse(localStorage.complete);
+				        	}
+				        	if (comp.includes(locations[i].pointID)){
+				        		console.log(locations[i].pointID + "already played");
+				        	}else{
+					        	console.log("Unloading " + source.src + "   Now playing " + locations[i].file);
+					        	aud.pause();
+					        	tester.fin();
+					        	if (aud.childNodes[0]) {
+					        	aud.removeChild(aud.childNodes[0]);};
+					        	source.src = ("./audio/" + locations[i].file);
+					        	aud.appendChild(source);
+					        	aud.load();
+					        	document.getElementById('listening').innerHTML =  "You are listening to:"
+					        	document.getElementById('poetName').innerHTML =  locations[i].name;
+					        	document.getElementById('recYear').innerHTML = "Performing in " + locations[i].year;
+					        	document.getElementById('poetImg').src = "./img/poets/" + locations[i].name + ".jpg";
+					        	document.getElementById('poetImg').style.visibility = "visible";
+					        	aud.point = locations[i].pointID;
+					        	if(iOS == true){
+					        		document.getElementById("alertPlay").style.display = "block";
+					        		document.getElementById("poetPlay").innerHTML = locations[i].name;
+					        	}else{
+					        	aud.play();
+					        	if (playPromise !== null){
+								    playPromise.catch(() => { 
+								    	/*var ele = document.getElementById("instructions");
+
+								    	ele.style.display = "block";*/
+								    	aud.play();
+								  });  	
+								};
+					        	aud.onended = function(){tester.fin();};}
+				        	}
+				        }
+				        else if (!aud.paused) {
+
+				        }else
+				        	{
+				        		var comp =[];
+				        	if(typeof(localStorage.complete) !== "undefined"){//if there is local storage
+				        		comp = JSON.parse(localStorage.complete);
+				        	}
+				        	if (comp.includes(locations[i].pointID)){
+				        		console.log(locations[i].pointID + "already played");
+				        	}
+				        	else{
+				        		/*document.getElementById("alertPlay").style.display = "block";
+					        	document.getElementById("poetPlay").innerHTML = locations[i].name;*/
+				        	}
+				        }
+				    }
+			  	}
+			    
+			  },
+			  fin: function(){
+						if(typeof(aud.point) !== "undefined"){
+							console.log("end");
+							if(typeof(localStorage.complete) !== "undefined"){
+								console.log("local storage")
+								document.getElementById('listening').innerHTML = "Approach another point";
+								document.getElementById('poetName').innerHTML = "";
+								document.getElementById('recYear').innerHTML = "";
+								document.getElementById('poetImg').style.visibility = "hidden";
+								var comp = JSON.parse(localStorage.complete);
+								if (!comp.includes(aud.point)) {comp.push(aud.point);};
+								
+								console.log("fin" + comp);
+								localStorage.complete = JSON.stringify(comp);
+								for (var i = comp.length - 1; i >= 0; i--) {
+									if(typeof(map.getLayer("point"+comp[i])) !== "undefined"){
+										console.log("removing" + comp[i]);
+										map.removeLayer("point"+comp[i]);
+										map.removeSource("point"+comp[i]);
+										locations[(comp[i] - 1)].layer["id"] = "point" + comp[i] + "fin";
+										locations[(comp[i] - 1)].layer.layout["icon-image"] = "festMarkerGrey";
+										map.addLayer(locations[(comp[i] - 1)].layer);
+									}
+								}
+								if (comp.length >= 7) {
+									location.href = "./#credits";
+								}
+								 
+							}else{
+								console.log("no local storage");
+								document.getElementById('listening').innerHTML = "Approach another point";
+								document.getElementById('poetName').innerHTML = "";
+								document.getElementById('recYear').innerHTML = "";
+								document.getElementById('poetImg').style.visibility = "hidden";
+								localStorage.setItem("complete","["+aud.point+"]");
+								console.log(localStorage.complete);
+								map.removeLayer("point"+aud.point);
+								map.removeSource("point"+aud.point);
+								locations[(aud.point - 1)].layer["id"] = "point" + aud.point + "fin";
+								locations[(aud.point - 1)].layer.layout["icon-image"] = "festMarkerGrey";
+								map.addLayer(locations[aud.point - 1].layer);
+								
+							}
+						}
+					}
+			}
+			mapboxgl.accessToken = 'pk.eyJ1IjoibnVtYmVycGFpbnRlciIsImEiOiJjazExdGU0c2kwNXBmM2VwOXliZ3o1bGFlIn0.loznLyjDn_yyfSFpqRgicQ';
+			var scrollBounds = [
+					[-2.09286, 51.89071],
+					[-2.0664, 51.90923]
+				];
+			var map = new mapboxgl.Map({
+			  container: 'map',
+			  /*minZoom: ,*/
+			  style: 'mapbox://styles/numberpainter/ck13mxwh613hj1cp5gmopwp9g',
+			  pitchWithRotate: false,
+			  maxBounds: scrollBounds,
+			}); 
+			
+			/*map.addControl(new mapboxgl.GeolocateControl({
+		    positionOptions: {
+		        enableHighAccuracy: true
+		    },
+		    trackUserLocation: true
+			}));*/
+function displayError(error) {
+  var errors = {
+    1: 'Permission denied',
+    2: 'Position unavailable',
+    3: 'Request timeout'
+  };
+  return ("Error: " + errors[error.code]);
+}
+function cacheAudio(){
+	const audioCACHE = 'chelentham-audio-v1';
+	var audioToCache = ['/audio/loc1_Allen_Ginsberg.mp3',
+'/audio/loc2_Hollie_McNish.mp3',
+'/audio/loc3_Lemn_Sissay.mp3',
+'/audio/loc4_Simon_Armitage.mp3',
+'/audio/loc5_George_the_Poet.mp3',
+'/audio/loc6_Stevie_Smith.mp3',
+'/audio/loc7_Seamus_Heaney.mp3'];
+audioToCache.forEach(function(arrayElement) {
+
+
+	caches.match(arrayElement).then(function(response) {
+		console.log(arrayElement);
+		if (response) {
+        	console.log(arrayElement + "already cached");
+      		}else{
+      			caches.open(audioCACHE).then(function(cache) { 
+				        console.log("caching " + JSON.stringify(arrayElement) + " in " + cache);
+				return cache.add(arrayElement);   
+				    
+				}); 
+      		}
+  		});
+})
+
+
+}
+			function getLocation() {
+			  if ("geolocation" in navigator) {
+			    /* geolocation is available */
+			    var geo_options = {
+  					enableHighAccuracy: true,
+  					timeout:10000,
+  					maximumAge: 10000
+  				}
+  				
+			    navigator.geolocation.watchPosition(function(position) {
+			      //console.log(position.coords.latitude, position.coords.longitude);
+			      var data = {
+			      		"type":"Point",
+						"coordinates":[position.coords.longitude, position.coords.latitude]
+			      	}
+			      map.getSource('person').setData(data);
+			      tester.here(position.coords.latitude, position.coords.longitude)
+			  	},function(error){window.alert("Please enable location on your device" +displayError(error));getLocation();},geo_options);
+			  } else {
+			    /* geolocation IS NOT available */
+			    window.alert("Please enable location on your device");
+			   /* setTimeout(function() {getLocation()}, 4000);*/
+			  }
+			}
+
+			map.on('load', function() {
+
+				map.addSource('person', {
+					"type": "geojson",
+					"data":{
+						"type":"Point",
+						"coordinates":[]
+					}
+				});
+				map.addLayer({
+					"id": "person",
+					"source": "person",
+					"type": "circle",
+					"paint": {
+						"circle-radius": 10,
+						"circle-color": "#007cbf"
+					}
+				});
+				map.loadImage('./img/marker.png', function(error, image) {
+					if (error) throw error;
+					map.addImage('festMarker', image);
+					drawPoints();
+				});
+				map.loadImage('./img/markerGrey.png', function(error, image) {
+					if (error) throw error;
+					map.addImage('festMarkerGrey', image);
+
+				});
+				
+				var geo_options = {
+  					enableHighAccuracy: true,
+  					timeout:10000,
+  					maximumAge: 10000
+  				};
+
+				navigator.geolocation.getCurrentPosition(function(position){
+  					map.flyTo({center: [position.coords.longitude,position.coords.latitude],minZoom:9, zoom:6})
+  				},function(error){window.alert("Please enable location on your device" +displayError(error));getLocation();},geo_options);
+				getLocation();
+				cacheAudio();
+
+			});
+		</script>
+	</body>
+</html>
